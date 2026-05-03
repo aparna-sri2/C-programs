@@ -1,0 +1,388 @@
+1. Template – Find Maximum
+
+#include <iostream>
+using namespace std;
+
+template <class T>
+T findMax(T a, T b) {
+    return (a > b) ? a : b;
+}
+
+int main() {
+    cout << findMax(10, 20) << endl;
+    cout << findMax(5.5, 2.3) << endl;
+    return 0;
+}
+
+
+2. Class Template – Swap
+
+#include <iostream>
+using namespace std;
+
+template <class T>
+class Swap {
+public:
+    T a, b;
+    Swap(T x, T y) { a = x; b = y; }
+    void swapValues() {
+        T temp = a;
+        a = b;
+        b = temp;
+    }
+    void display() { cout << a << " " << b << endl; }
+};
+
+int main() {
+    Swap<int> s(10, 20);
+    s.swapValues();
+    s.display();
+}
+
+
+3. Template with Multiple Types
+
+#include <iostream>
+using namespace std;
+
+template <class T, class U>
+class Pair {
+    T a;
+    U b;
+public:
+    Pair(T x, U y) : a(x), b(y) {}
+    void display() { cout << a << " " << b << endl; }
+};
+
+int main() {
+    Pair<int, float> p(10, 2.5);
+    p.display();
+}
+
+
+4. Template Specialization
+
+#include <iostream>
+using namespace std;
+
+template <class T>
+class Printer {
+public:
+    void print(T data) {
+        cout << "Generic: " << data << endl;
+    }
+};
+
+template <>
+class Printer<char*> {
+public:
+    void print(char* data) {
+        cout << "String: " << data << endl;
+    }
+};
+
+int main() {
+    Printer<int> p1;
+    p1.print(10);
+
+    Printer<char*> p2;
+    p2.print("Hello");
+}
+
+
+5. Exception – Division
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a = 10, b = 0;
+    try {
+        if (b == 0)
+            throw "Division by zero!";
+        cout << a / b;
+    }
+    catch (const char* msg) {
+        cout << msg;
+    }
+}
+
+
+6. Multiple Catch
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    try {
+        throw 10.5;
+    }
+    catch (int x) { cout << "Integer"; }
+    catch (double x) { cout << "Double"; }
+    catch (...) { cout << "Unknown"; }
+}
+
+
+7. User-defined Exception
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    try {
+        if (n < 0)
+            throw n;
+        cout << "Valid number";
+    }
+    catch (int x) {
+        cout << "Negative number!";
+    }
+}
+
+
+8. Bank Exception
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int balance = 1000, withdraw;
+    cin >> withdraw;
+
+    try {
+        if (withdraw > balance)
+            throw "Insufficient Balance";
+        cout << "Withdrawn";
+    }
+    catch (const char* msg) {
+        cout << msg;
+    }
+}
+
+
+9. Single Inheritance
+
+#include <iostream>
+using namespace std;
+
+class Person {
+public:
+    void show() { cout << "Person\n"; }
+};
+
+class Student : public Person {
+public:
+    void display() { cout << "Student\n"; }
+};
+
+int main() {
+    Student s;
+    s.show();
+    s.display();
+}
+
+
+10. Multiple Inheritance
+
+#include <iostream>
+using namespace std;
+
+class Test { public: void t() { cout << "Test\n"; } };
+class Sports { public: void s() { cout << "Sports\n"; } };
+
+class Result : public Test, public Sports {};
+
+int main() {
+    Result r;
+    r.t();
+    r.s();
+}
+
+
+11. Multilevel Inheritance
+
+#include <iostream>
+using namespace std;
+
+class A { public: void showA() { cout << "A\n"; } };
+class B : public A { public: void showB() { cout << "B\n"; } };
+class C : public B { public: void showC() { cout << "C\n"; } };
+
+int main() {
+    C obj;
+    obj.showA();
+    obj.showB();
+    obj.showC();
+}
+
+
+12. Hierarchical Inheritance
+
+#include <iostream>
+using namespace std;
+
+class Base { public: void show() { cout << "Base\n"; } };
+class D1 : public Base {};
+class D2 : public Base {};
+
+int main() {
+    D1 a; D2 b;
+    a.show();
+    b.show();
+}
+
+
+13. Hybrid Inheritance
+
+#include <iostream>
+using namespace std;
+
+class A { public: void show() { cout << "A\n"; } };
+class B : public A {};
+class C : public A {};
+class D : public B, public C {};
+
+int main() {
+    D obj;
+    obj.B::show();
+}
+
+
+14. Virtual Base Class
+
+#include <iostream>
+using namespace std;
+
+class A { public: int x; };
+
+class B : virtual public A {};
+class C : virtual public A {};
+
+class D : public B, public C {};
+
+int main() {
+    D obj;
+    obj.x = 10;
+    cout << obj.x;
+}
+
+
+15. Function Overloading
+
+#include <iostream>
+using namespace std;
+
+int add(int a, int b) { return a + b; }
+double add(double a, double b) { return a + b; }
+
+int main() {
+    cout << add(2, 3) << endl;
+    cout << add(2.5, 3.5);
+}
+
+
+16. Operator Overloading
+
+
+#include <iostream>
+using namespace std;
+
+class Num {
+public:
+    int x;
+    Num(int a) { x = a; }
+    Num operator+(Num obj) {
+        return Num(x + obj.x);
+    }
+};
+
+int main() {
+    Num n1(5), n2(10);
+    Num n3 = n1 + n2;
+    cout << n3.x;
+}
+
+
+17. Runtime Polymorphism
+
+#include <iostream>
+using namespace std;
+
+class Base {
+public:
+    virtual void show() { cout << "Base\n"; }
+};
+
+class Derived : public Base {
+public:
+    void show() { cout << "Derived\n"; }
+};
+
+int main() {
+    Base* b;
+    Derived d;
+    b = &d;
+    b->show();
+}
+
+
+18. Virtual Function
+
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+    virtual void display() { cout << "A\n"; }
+};
+
+class B : public A {
+public:
+    void display() { cout << "B\n"; }
+};
+
+int main() {
+    A* obj = new B();
+    obj->display();
+}
+
+
+19. Abstract Class
+
+#include <iostream>
+using namespace std;
+
+class Shape {
+public:
+    virtual void area() = 0;
+};
+
+class Circle : public Shape {
+public:
+    void area() { cout << "Circle Area\n"; }
+};
+
+int main() {
+    Circle c;
+    c.area();
+}
+
+
+20. File Handling
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    ofstream out("data.txt");
+    out << "Hello C++";
+    out.close();
+
+    ifstream in("data.txt");
+    string s;
+    getline(in, s);
+    cout << s;
+}
